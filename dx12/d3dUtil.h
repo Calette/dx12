@@ -2,13 +2,20 @@
 
 // COM智能指针
 #include <wrl.h>
+// DXGI
 #include <dxgi1_4.h>
+// Direct3D 12
 #include <d3d12.h>
 // DirectX数学库
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
+// DirectX颜色库
+#include <DirectXColors.h>
 
+#include <vector>
 #include <string>
+
+#include "d3dx12.h"
 
 inline std::wstring AnsiToWString(const std::string& str)
 {
@@ -38,4 +45,8 @@ public:
     std::wstring wfn = AnsiToWString(__FILE__);                       \
     if(FAILED(hr__)) { throw DxException(hr__, L#x, wfn, __LINE__); } \
 }
+#endif
+
+#ifndef ReleaseCom
+#define ReleaseCom(x) { if(x){ x->Release(); x = 0; } }
 #endif
